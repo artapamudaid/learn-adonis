@@ -3,10 +3,11 @@
 const Post = use("App/Models/Post")
 
 class PostController {
-    async index({request, response, view}) {
+    async index({request, response, view, auth}) {
+        const user = auth.user.toJSON()
         const posts = await Post.all()
 
-        return view.render('posts.index', { posts: posts.rows })
+        return view.render('posts.index', { posts: posts.rows, user: user })
     }
 
     create({request, response, view}) {
